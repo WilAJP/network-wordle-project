@@ -10,7 +10,14 @@ def load_words(filename="words.txt"):
 def get_random_word(words):
     return random.choice(words)
 
+# sends a msg
+def send_msg(conn, msg):
+    conn.sendall((msg + "\n").encode())
 
+# receives a msg 
+def recv_msg(conn):
+    data = conn.recv(1024).decode().strip()
+    return data
 
 def returnColor(guess, word):
     # default color grey

@@ -16,7 +16,9 @@ How to run client - python client.py {hostname} {optional port number}
 The type of library - Shared as we wanted the library to be used by both server and client withouth directly being embedded into the code. 
 
 Protocol - TCP as we wanted the client and server to have a solid connection with eachother and there for not to be any data being loss when sent.
-Protocol Syntax Messages - ?
+Protocol Syntax Messages:
+- Client -> Server: READY (Client asks server to send a new secret word) | BYE (Client is done and wants to close the connection)
+- Server -> Client: ?
 
 Known Issues - None
 

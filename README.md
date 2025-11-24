@@ -11,7 +11,7 @@ How to compile the client and server - No compilation. Project written in Python
 
 How to run server - ?
 
-How to run client - python client.py <hostname> <optional port number>
+How to run client - python client.py {hostname} {optional port number}
 
 The type of library - Shared as we wanted the library to be used by both server and client withouth directly being embedded into the code. 
 

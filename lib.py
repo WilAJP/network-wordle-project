@@ -16,8 +16,19 @@ def send_msg(conn, msg):
 
 # receives a msg 
 def recv_msg(conn):
-    data = conn.recv(1024).decode().strip()
-    return data
+    incomingData = b""
+    while True:
+        chunk = conn.recv(1024)
+        if not chunk:
+            if not incomingData:
+                return None
+            break
+        incomingData += chunk
+        if b"\n" in chunk:
+            break
+        
+    message = incomingData.decode("utf-8")
+    return message
 
 def returnColor(guess, word):
     # default color grey

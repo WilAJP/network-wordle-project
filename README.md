@@ -7,11 +7,11 @@ Library - Christopher Frias
 
 Description : A wordle style game using a client-server format in Python. The server provides random festive-themed words to connected clients, and the client allows the user to guess the words. The game gives the letters G or Y in results of guessing the correct or a letter in the word.
 
-How to compile the client and server - ?
+How to compile the client and server - No compilation. Project written in Python
 
 How to run server - ?
 
-How to run client - ?
+How to run client - python client.py <hostname> <optional port number>
 
 The type of library - Shared as we wanted the library to be used by both server and client withouth directly being embedded into the code. 
 

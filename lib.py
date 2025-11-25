@@ -31,24 +31,32 @@ def recv_msg(conn):
     return message
 
 def returnColor(guess, word):
-    # default color grey
+    guess = guess.upper()
+    word = word.upper()
+
+    # Result starts gray
     result = ["_"] * len(guess)
 
-    # count letters in word
+    # Count letters in the secret word
     counts = {}
     for ch in word:
         counts[ch] = counts.get(ch, 0) + 1
 
-    # loop through check either green or yellow
+    # ----- FIRST PASS: handle greens -----
     for i in range(len(guess)):
         if guess[i] == word[i]:
             result[i] = "G"
-            counts[guess[i]] -= 1
-        else:
-            # yellow if in dict 
-            if guess[i] in counts and counts[guess[i]] > 0:
-                result[i] = "Y"
-                counts[guess[i]] -= 1
+            counts[guess[i]] -= 1  # Reduce available count since it’s used
+
+    # ----- SECOND PASS: handle yellows -----
+    for i in range(len(guess)):
+        # Skip indexes already green
+        if result[i] == "G":
+            continue
+
+        letter = guess[i]
+        if letter in counts and counts[letter] > 0:
+            result[i] = "Y"
+            counts[letter] -= 1  # Use one of that letter
 
     return result
-

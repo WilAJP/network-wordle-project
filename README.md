@@ -18,7 +18,7 @@ The type of library - Shared as we wanted the library to be used by both server 
 Protocol - TCP as we wanted the client and server to have a solid connection with eachother and there for not to be any data being loss when sent.
 Protocol Syntax Messages:
 - Client -> Server: READY (Client asks server to send a new secret word) | BYE (Client is done and wants to close the connection)
-- Server -> Client: ?
+- Server -> Client: HELLO (Sent immediately when client connects) --> <word> (Randomly seletected 5 letter word sent when the client sends READY) 
 
 Known Issues - None
 

@@ -9,7 +9,7 @@ Description : A wordle style game using a client-server format in Python. The se
 
 How to compile the client and server - No compilation. Project written in Python
 
-How to run server - ?
+How to run server - python server.py {optional port number}
 
 How to run client - python client.py {hostname} {optional port number}
 

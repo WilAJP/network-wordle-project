@@ -1,10 +1,37 @@
-#Simple TCP server
+#*****************************************************************************#
+# Author:        Wilfred Jimenez                                              #
+# Major:         Computer Science                                             #
+# Creation Date: Oct 19th, 2025                                               #
+# Due Date:      November 27, 2025                                            #
+# Course:        CSC 328                                                      #
+# Professor:     Riley Walther                                                #
+# Assignment:    Wordle Project                                               #
+# Filename:      server.py                                                    #
+# Purpose:       This program implements a concurrent TCP server that         #
+#                sends random 5 letter words to clients. Each client          #
+#                connects, receives a greeting, and can request new words     #
+#                or disconnect.                                               #
+# Language:      Python                                                       #
+# How to run:    python server.py <port>                                      #
+#                                                                             #
+#*****************************************************************************#
 import sys
 import socket
 import threading
 
 from lib import load_words, get_random_word, send_msg, recv_msg
 
+#*******************************************************************#
+#                                                                   #
+#   Function name:  portValidation                                  #
+#   Description:    Validates the optional command line port        #
+#                   argument, ensures it is within a valid range,   #
+#                   and checks that it is not already in use.       #
+#   Parameters:     defaultPort (int) - default port to use when    #
+#                   no port is supplied on the command line         #
+#   Return Value:   int - the validated port number                 #
+#                                                                   #
+#*******************************************************************#
 def portValidation(defaultPort):
     #validate optional port agument and make sure its usable
     usage = "Usage: python server.py <port>"
@@ -14,7 +41,7 @@ def portValidation(defaultPort):
     if len(sys.argv) == 1:
         return defaultPort
         
-    #if port is given, verify its an int    
+    #if port is given, verify its an int
     elif len(sys.argv) == 2:
         try:
             port = int(sys.argv[1])
@@ -42,7 +69,22 @@ def portValidation(defaultPort):
         testPort.close()    #close test socket
     return port 
     
-    
+
+#*******************************************************************#
+#                                                                   #
+#   Function name:  handleClient                                    #
+#   Description:    Handles communication with a single client.     #
+#                   Sends an initial HELLO message, processes       #
+#                   client commands, and sends random words when    #
+#                   requested. Closes the connection when the       #
+#                   client disconnects or an error occurs.          #
+#   Parameters:     connection (socket.socket) - client connection  #
+#                   address (tuple) - client (ip, port)             #
+#                   wordleWords (list of str) - list of possible    #
+#                   words to send to the client                     #
+#   Return Value:   None                                            #
+#                                                                   #
+#*******************************************************************#
 def handleClient(connection, address, wordleWords):
     print("Connected by ", address)
     try:
@@ -79,9 +121,20 @@ def handleClient(connection, address, wordleWords):
         print(f"Socket error with {address}: {e}")
     finally:
         connection.close()      #always and I mean ALWAYS close the connection 
-        print("Connection closed for {address}")
+        print("Connection closed for ", address)
     
-
+#*******************************************************************#
+#                                                                   #
+#   Function name:  main                                            #
+#   Description:    Validates the port, loads the word list,        #
+#                   creates the listening TCP socket, accepts       #
+#                   incoming client connections, and starts a       #
+#                   thread for each connected client. Shuts down    #
+#                   cleanly on keyboard interrupt.                  #
+#   Parameters:     None                                            #
+#   Return Value:   None                                            #
+#                                                                   #
+#*******************************************************************#
 def main():
     defaultPort = 50000 #default port 
         

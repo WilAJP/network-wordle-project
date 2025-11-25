@@ -14,6 +14,7 @@ How to run server - python server.py {optional port number}
 How to run client - python client.py {hostname} {optional port number}
 
 The type of library - Shared as we wanted the library to be used by both server and client withouth directly being embedded into the code. 
+IMPORTANT - Library needs a .txt containing a list of words to pull from to use in the wordle game.
 
 Protocol - TCP as we wanted the client and server to have a solid connection with eachother and there for not to be any data being loss when sent.
 Protocol Syntax Messages:

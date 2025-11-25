@@ -27,8 +27,8 @@ def play_round(secret_word):
         attempts += 1
 
         # Remove guessed letters from the remaining alphabet
-        for ch in guess:
-            remaining_letters.discard(ch)
+        for char in guess:
+            remaining_letters.discard(char)
 
         # Call library function to get green/yellow/gray result
         result = returnColor(guess, secret_word)

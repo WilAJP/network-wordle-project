@@ -1,4 +1,4 @@
-# network-wordle-project
+# Wordle Network Project CPSC 328
 
 Project Leader - Wilfred Jimenez
 Client - Charlen Baloukjy

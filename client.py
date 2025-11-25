@@ -1,8 +1,37 @@
+#****************************************************************************#
+# Name: Charlen Baloukjy                                                     #
+# Major: Computer Science                                                    #
+# Creation Date: 10/16/2025                                                  #
+# Due Date: 11/24/2025                                                       #
+# Professor: Riley Walther                                                   #
+# File Name: client.py                                                       #
+# CPSC 328                                                                   #
+# Team Program Application - Wordle                                          #
+# Purpose: Interact with the user and perform the Wordle game functionality. #
+#****************************************************************************#
 import socket
 import sys
 from lib import send_msg, recv_msg, returnColor
 
 DEFAULT_PORT = 50000
+
+#*******************************************************************#
+#                                                                   #
+#   Function name:  play_round                                      #
+#                                                                   #
+#   Description:    Runs one full round of the Wordle game using    #
+#                   the secret word provided by the server.         #
+#                   Handles user guesses, validates inputs, tracks  #
+#                   remaining letters, displays color-coded         #
+#                   feedback, and determines win/loss conditions.   #
+#                                                                   #
+#   Parameters:     secret_word (str) - the word the player must    #
+#                   guess.                                          #
+#                                                                   #
+#   Return Value:   None - controls a single round of gameplay and  #
+#                   prints results to the screen.                   #
+#                                                                   #
+#*******************************************************************#
 
 def play_round(secret_word):
     secret_word = secret_word.upper()
@@ -43,6 +72,24 @@ def play_round(secret_word):
 
     print("\nOut of attempts! The word was {}.".format(secret_word))
 
+#*******************************************************************#
+#                                                                   #
+#   Function name:  main                                            #
+#                                                                   #
+#   Description:    The main client function. Handles command-line  #
+#                   argument parsing, validates the hostname/IP,    #
+#                   connects to the Wordle server, exchanges the    #
+#                   initial greeting, requests secret words,        #
+#                   initiates gameplay rounds, and manages user     #
+#                   continuation or exit commands.                  #
+#                                                                   #
+#   Parameters:     None (reads hostname and optional port from     #
+#                   sys.argv).                                      #
+#                                                                   #
+#   Return Value:   None - controls the overall execution flow of   #
+#                   the Wordle client.                              #
+#                                                                   #
+#*******************************************************************#
 
 def main():
     try:
@@ -92,6 +139,7 @@ def main():
             except:
                 return
 
+
             print("[SERVER]:", hello)
 
 
@@ -126,4 +174,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

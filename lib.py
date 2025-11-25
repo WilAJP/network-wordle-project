@@ -1,20 +1,62 @@
+# ************************************************************
+# Author: Christopher Frias
+# Major: Computer Science
+# Creation Date: November 19, 2025
+# Due Date: November 24, 2025
+# Course: CPSC 328 020
+# Professor: Professor Walther
+# Assignment: Wordle Project
+# Filename: lib.py
+# Purpose: provides functions for loading words, messaging,
+#          and returning color results for server and client
+# Language: Python ^.^
+# ************************************************************
+
 import random
 
-# loads the list of words from the text file
+# ************************************************************
+# Function name: load_words
+# Description: loads a list of words from a text file
+# Parameters:
+#       filename - a file containing words
+# Return: list of words
+# ************************************************************
 def load_words(filename="words.txt"):
-    with open(filename, "r") as f:
-        words = [w.strip() for w in f.readlines() if w.strip()]
-    return words
+    try:
+        with open(filename, "r") as f:
+            return [w.strip() for w in f if w.strip()]
+    except FileNotFoundError:
+        print(f"{filename} not accessible")
+        return []
 
-# returns a random word from the list
+# ************************************************************
+# Function name: get_random_word
+# Description: returns a random word from the list
+# Parameters:
+#       words - list of possible words
+# Return: a random 5 letter word
+# ************************************************************
 def get_random_word(words):
     return random.choice(words)
 
-# sends a msg
+# ************************************************************
+# Function name: send_msg
+# Description: sends a message through a connection
+# Parameters:
+#       conn - socket connection
+#       msg  - message to send
+# Return: None
+# ************************************************************
 def send_msg(conn, msg):
     conn.sendall((msg + "\n").encode())
 
-# receives a msg 
+# ************************************************************
+# Function name: recv_msg
+# Description: receives a message from connection
+# Parameters:
+#       conn - socket connection
+# Return: received message or None
+# ************************************************************
 def recv_msg(conn):
     incomingData = b""
     while True:
@@ -30,33 +72,36 @@ def recv_msg(conn):
     message = incomingData.decode("utf-8")
     return message
 
+# ************************************************************
+# Function name: returnColor
+# Description: compare the words and check if letters correlate
+# Parameters:
+#       guess - guessed word
+#       word  - correct word
+# Return: list (color of each letter)
+# ************************************************************
 def returnColor(guess, word):
+    # makes both words uppercase
     guess = guess.upper()
     word = word.upper()
 
-    # Result starts gray
+    # result starts gray (underscore)
     result = ["_"] * len(guess)
 
-    # Count letters in the secret word
+    # counts amount of letters in the word
     counts = {}
     for ch in word:
         counts[ch] = counts.get(ch, 0) + 1
 
-    # ----- FIRST PASS: handle greens -----
+    # checks for green and yellow
     for i in range(len(guess)):
         if guess[i] == word[i]:
             result[i] = "G"
-            counts[guess[i]] -= 1  # Reduce available count since it’s used
-
-    # ----- SECOND PASS: handle yellows -----
-    for i in range(len(guess)):
-        # Skip indexes already green
-        if result[i] == "G":
-            continue
-
-        letter = guess[i]
-        if letter in counts and counts[letter] > 0:
-            result[i] = "Y"
-            counts[letter] -= 1  # Use one of that letter
+            counts[guess[i]] -= 1
+        else:
+            letter = guess[i]
+            if letter in counts and counts[letter] > 0:
+                result[i] = "Y"
+                counts[letter] -= 1
 
     return result

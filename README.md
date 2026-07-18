@@ -1,27 +1,70 @@
-# Wordle Network Project CPSC 328
+# Python TCP Client-Server Wordle
 
-Project Leader - Wilfred Jimenez
-Client - Charlen Baloukjy
-Server - Wilfred Jimenez
-Library - Christopher Frias
+A Wordle style game built in Python using a TCP client-server architecture. The server manages game sessions and sends random five-letter words to connected clients over a TCP connection.
 
-Description : A wordle style game using a client-server format in Python. The server provides random festive-themed words to connected clients, and the client allows the user to guess the words. The game gives the letters G or Y in results of guessing the correct or a letter in the word.
+## Team
 
-How to compile the client and server - No compilation. Project written in Python
+This project was completed as a team for a university networking course.
 
-How to run server - python server.py {optional port number}
+| Team Member         | Responsibility                   |
+| ------------------- | -------------------------------- |
+| **Wilfred Jimenez** | Project Lead, Server Development |
+| Charlen Baloukjy    | Client Development               |
+| Christopher Frias   | Shared Library                   |
 
-How to run client - python client.py {hostname} {optional port number}
+## My Contributions
 
-The type of library - Shared as we wanted the library to be used by both server and client withouth directly being embedded into the code. 
-WORDBANK - FESTIVE THEME (CHRISTMAS/THANKSGIVING)
-IMPORTANT - Library needs a .txt containing a list of words to pull from to use in the wordle game.
+As Project Lead, I was responsible for the server-side implementation of the project. My work included:
 
-Protocol - TCP as we wanted the client and server to have a solid connection with eachother and there for not to be any data being loss when sent.
-Protocol Syntax Messages:
-- Client -> Server: READY (Client asks server to send a new secret word) | BYE (Client is done and wants to close the connection)
-- Server -> Client: HELLO (Sent immediately when client connects) --> <word> (Randomly seletected 5 letter word sent when the client sends READY) 
+* Developing the TCP server using Python sockets
+* Handling client connections and communication
+* Implementing the server-side game logic
+* Sending random words from the shared word list
+* Assisting with integration, testing, and debugging
 
-Known Issues - None
+## Technologies
 
-Yes we worked as a team  to identify tasks assigned to eachother to be able to efficently complete the project successfully and on time.
+* Python
+* TCP Sockets
+* Client-Server Architecture
+* Shared Python Library
+
+## Networking Concepts
+
+* TCP socket communication
+* Client-server architecture
+* Custom client/server messaging
+* Persistent connections
+* Network application testing
+
+## Running the Project
+
+Start the server:
+
+```bash
+python server.py
+```
+
+Start the client:
+
+```bash
+python client.py <hostname>
+```
+
+An optional port number can be provided when starting either the server or client.
+
+## Protocol
+
+**Client → Server**
+
+* `READY` – Request a new word
+* `BYE` – Close the connection
+
+**Server → Client**
+
+* `HELLO` – Sent when a client connects
+* `<word>` – Random five-letter word sent after receiving `READY`
+
+## Notes
+
+The project uses a shared Python library and a text file containing the available five-letter words. The repository remains in its original team format to accurately represent each member's contributions.
